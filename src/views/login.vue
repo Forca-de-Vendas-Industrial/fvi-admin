@@ -58,6 +58,9 @@ let confSenha = ref("");
 let usuario = reactive({ senha: "", })
 
 onMounted(() => {
+  if (localStorage.getItem("urlAPI") == null) {
+    localStorage.setItem("urlAPI", url.value);
+  }
   verificaPadrao();
 })
 
@@ -66,6 +69,7 @@ const entra = async () => {
   localStorage.setItem("urlAPI", url.value);
   let response = await usuarioRecords.auth(login);
   if (response != null) {
+    localStorage.setItem("token", response.token);
     router.push("/");
   }
 }
