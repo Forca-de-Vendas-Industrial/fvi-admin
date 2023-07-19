@@ -1,4 +1,5 @@
 <template>
+  <notifications classes="n-light" position="top right" />
   <div class="relative">
       <div class="h-screen w-[15%] bg-[#27248D] absolute top-0" v-if="logado">
         <div class="relative h-full w-full">
@@ -22,14 +23,14 @@
           </div>
         </div>
       </div>
-      <div class="h-screen w-[85%] absolute left-[15%]">
+      <div :class="layoutTela" >
         <RouterView></RouterView>
       </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, getCurrentInstance, watch, onMounted } from "vue";
+import { reactive, ref, getCurrentInstance, onMounted, computed } from "vue";
 import { useRoute } from "vue-router"
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiHome, mdiShopping, mdiAccountGroup, mdiCurrencyUsd, mdiCog, mdiLogout, mdiAccountTag, mdiBallot, mdiBarcode, mdiDomain } from "@mdi/js";
@@ -51,17 +52,47 @@ let menus = reactive([
   { path: "/login", nome: "SAIR", icone: mdiLogout  },
 ]);
 
-watch(route, (to) => {
-  if (to.fullPath == "/login") {
+const layoutTela = computed(() => {
+  if (route.fullPath == "/login") {
     logado.value = false;
-  }
-  else {
+    return "h-screen w-screen" 
+  } else {
     logado.value = true;
+    return "h-screen w-[85%] absolute left-[15%]"
   }
-});
+})
 
 onMounted(() => {
 
 })
 </script>
+
+<style lang="scss">
+.n-light {
+  // styling
+  padding: 10px;
+  font-size: 12px;
+  width: 300px;
+  color: #000000;
+  border-right: 5px solid #187fe7;
+
+  &.success {
+    background: #68cd86;
+    border-left-color: #42a85f;
+    border-right: 5px solid #42a85f;
+  }
+
+  &.warn {
+    background: #ffb648;
+    border-left-color: #f48a06;
+    border-right: 5px solid #f48a06;
+  }
+
+  &.error {
+    background: #e54d42;
+    border-left-color: #b82e24;
+    border-right: 5px solid #b82e24;
+  }
+}
+</style>
 
