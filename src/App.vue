@@ -4,7 +4,7 @@
     <div class="h-screen w-[15%] bg-[#27248D] absolute top-0" v-if="logado">
       <div class="relative h-full w-full">
         <div class="absolute w-full inset-x-0 top-0">
-          <ul>
+          <ul class="mt-2">
             <li v-for="item in menus" :key="item.path">
               <router-link :to=item.path>
                 <a href="#" class="flex items-center p-2 text-base font-normal text-white rounded-lg  hover:bg-[#197FDF]">
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div :class="layoutTela">
+    <div :class="layoutTela" class="bg-gray-100">
       <RouterView></RouterView>
     </div>
   </div>
@@ -30,20 +30,22 @@
 import { reactive, ref, getCurrentInstance, onMounted, computed } from "vue";
 import { useRoute } from "vue-router"
 import SvgIcon from "@jamescoyle/vue-icon";
-import { mdiShopping, mdiAccountGroup, mdiCurrencyUsd, mdiCog, mdiLogout, mdiAccountTag, mdiBallot, mdiBarcode, mdiDomain } from "@mdi/js";
+import { metodos } from "../src/const/Global";
+import { mdiShopping, mdiAccountGroup, mdiCurrencyUsd, mdiCog, mdiLogout, mdiAccountTag, mdiBallot, mdiBarcode, mdiDomain, mdiHome, mdiCalendar } from "@mdi/js";
 
 let currentInstance = getCurrentInstance();
 const route = useRoute()
 let logado = ref(true);
 let versaoFront = currentInstance?.appContext.config.globalProperties.msg;
 let menus = reactive([
-  // { path: "/", nome: "INICIO", icone: mdiHome   },
+  { path: "/", nome: "INICIO", icone: mdiHome },
   { path: "/pedidos", nome: "PEDIDOS", icone: mdiShopping },
   { path: "/produtos", nome: "PRODUTOS", icone: mdiBarcode },
   { path: "/clientes", nome: "CLIENTES", icone: mdiAccountGroup },
   { path: "/vendedores", nome: "VENDEDORES", icone: mdiAccountTag },
   { path: "/tabelas", nome: "TABELAS DE PREÇO", icone: mdiCurrencyUsd },
   { path: "/tipoPedido", nome: "TIPO PEDIDO", icone: mdiBallot },
+  { path: "/prazo", nome: "PRAZOS", icone: mdiCalendar },
   { path: "/empresas", nome: "EMPRESA", icone: mdiDomain },
   { path: "/configuracoes", nome: "CONFIGURAÇÕES", icone: mdiCog },
   { path: "/login", nome: "SAIR", icone: mdiLogout },
@@ -60,7 +62,7 @@ const layoutTela = computed(() => {
 })
 
 onMounted(() => {
-
+  metodos.setToken(localStorage.getItem("token")!);
 })
 </script>
 
