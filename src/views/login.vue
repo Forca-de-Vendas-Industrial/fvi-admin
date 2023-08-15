@@ -72,8 +72,8 @@ const entra = async () => {
   let response = await usuarioRecords.auth(login);
   if (response != null) {
     localStorage.setItem("token", response.token);
-  
-    router.push("/pedido");
+
+    router.push("/");
   }
 }
 
@@ -104,7 +104,6 @@ const cadastra = async () => {
 
 const verificaPadrao = async () => {
   let response = await usuarioRecords.verificaPadrao();
-  console.log("response padrao", response)
   temPadrao.value = response;
 }
 
