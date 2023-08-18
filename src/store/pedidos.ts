@@ -4,7 +4,7 @@ const notification = useNotification();
 import { stateGlobal } from "../const/Global";
 
 export const pedidoRecords = {
-  buscaPedidos: (pagination: string, dados: any) => {
+  listaPedidos: (pagination: string, dados: any) => {
     const url = localStorage.getItem("urlAPI");
     return fetch(url + "/request/list?"+pagination, {
       method: "POST",

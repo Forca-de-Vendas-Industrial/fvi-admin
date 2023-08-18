@@ -63,7 +63,7 @@ const buscaPedidos = async (paginacao: string) => {
   }
   console.log("pesquisa ", pesquisa.value)
 
-  let response = await pedidoRecords.buscaPedidos(paginacao, body);
+  let response = await pedidoRecords.listaPedidos(paginacao, body);
   if (response.sucess == true) {
     pedidos.value = response.body.content;
   }
