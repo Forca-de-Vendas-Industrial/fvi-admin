@@ -1,0 +1,12 @@
+{
+  "css.validate": false,
+  "eslint.validate": ["vue", "html", "javascript", "typescript"],
+  "editor.tabSize": 2,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.guides.bracketPairs": true,
+  "editor.formatOnSave": true,
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  }
+}
