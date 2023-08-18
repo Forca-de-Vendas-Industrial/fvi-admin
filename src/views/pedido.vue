@@ -7,17 +7,17 @@
         @click="showFiltro = true">FILTROS</button>
     </div>
 
-    <div class="m-5 bg-white border-black h-fit border rounded cursor-pointer">
-      <div v-for="pedido in pedidos" :key="pedido.codigo" class="" @click="detalha(pedido.codigo)">
-        <div class="justify-start pl-2 py-1">
+    <div class="m-5 bg-white border-black h-fit border rounded cursor-pointer ">
+      <div v-for="pedido in pedidos" :key="pedido.codigo" class=" relative " @click="detalha(pedido.codigo)">
+        <div class="pl-2 py-1 ">
           <p class="text-lg">{{ pedido.codigo }} - {{ pedido.cliente }}</p>
           <p class="text-xs">
             {{ pedido.vendedor }} - {{ pedido.dataPedido }}
           </p>
         </div>
-        <div>
-          <p v-if="pedido.status == 1">INTEGRADO</p>
-          <p v-if="pedido.status == 0">NÃO INTEGRADO</p>
+        <div class="pr-2 absolute inset-y-0 right-0 grid place-items-center">
+          <div v-if="pedido.status == 1" class="text-green-500 font-bold">INTEGRADO</div>
+          <div v-if="pedido.status == 0" class="text-red-500 font-bold">NÃO INTEGRADO</div>
         </div>
 
         <ul class="space-y-2 border-t border-gray-200 dark:border-gray-700"></ul>
@@ -27,15 +27,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, Ref } from "vue";
 import { pedidoRecords } from "../store/pedidos";
+
+interface pedBody {
+  codigo: number
+  dataPedido: string
+  status: number
+  cliente: string
+  vendedor: string
+}
 
 let pesquisa = ref("");
 let showFiltro = ref(false);
-let pedidos = ref([]);
+let pedidos = ref([]) as Ref<pedBody[]>;
 
 onMounted(() => {
-  buscaPedidos("");
+  buscaPedidos("page=0&size=10");
 })
 
 const buscaPedidos = async (paginacao: string) => {
