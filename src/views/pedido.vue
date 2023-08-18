@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, Ref } from "vue";
+import { ref, onMounted, Ref, watch } from "vue";
 import { pedidoRecords } from "../store/pedidos";
 import paginacao from "../components/paginacao.vue";
 
@@ -48,11 +48,17 @@ onMounted(() => {
   buscaPedidos("page=0&size=10");
 })
 
+watch(pesquisa, async () => {
+  buscaPedidos('page=0&size=10')
+})
+
 const buscaPedidos = async (paginacao: string) => {
   let body = {
     pesquisa: pesquisa.value,
     status: ""
   }
+  console.log("pesquisa ", pesquisa.value)
+
   let response = await pedidoRecords.buscaPedidos(paginacao, body);
   if (response.sucess == true) {
     pedidos.value = response.body.content;
