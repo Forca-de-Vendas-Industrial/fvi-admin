@@ -52,6 +52,7 @@ let menus = reactive([
 ]);
 
 const layoutTela = computed(() => {
+  getToken();
   if (route.fullPath == "/login") {
     logado.value = false;
     return "h-screen w-screen"
@@ -62,8 +63,12 @@ const layoutTela = computed(() => {
 })
 
 onMounted(() => {
-  metodos.setToken(localStorage.getItem("token")!);
+  getToken();
 })
+
+const getToken = () => {
+  metodos.setToken(localStorage.getItem("token")!)
+}
 </script>
 
 <style lang="scss">

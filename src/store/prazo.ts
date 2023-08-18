@@ -14,6 +14,13 @@ export const prazoRecords = {
     }).then(function (response) {
         if (response.status == 200) {
           return response.json();
+        }else if (response.status == 401) {
+          notification.notify({
+            title: "Não autenticado",
+            text: "Faça o login novamente",
+            type: "error",
+          });
+          window.location.href = window.location.href.split("#")[0] + "#/login";
         }
       }).catch(function (error) {
         console.log("response error ", error)
