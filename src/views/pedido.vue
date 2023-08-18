@@ -22,7 +22,8 @@
         <ul class="space-y-2 border-t border-gray-200 dark:border-gray-700"></ul>
       </div>
     </div>
-    <paginacao class="m-5" :itens-pages="10" :total-pages="totalPaginas" @update="buscaPedidos"></paginacao>
+    <paginacao class="m-5" :itens-pages="10" :total-pages="totalPaginas" @update="buscaPedidos" ref="pagination">
+    </paginacao>
   </div>
 </template>
 
@@ -39,6 +40,7 @@ interface pedBody {
   vendedor: string
 }
 
+const pagination = ref(null)
 let pesquisa = ref("");
 let showFiltro = ref(false);
 let pedidos = ref([]) as Ref<pedBody[]>;
@@ -50,6 +52,8 @@ onMounted(() => {
 
 watch(pesquisa, async () => {
   buscaPedidos('page=0&size=10')
+  // @ts-ignore: Object is possibly 'null'.
+  pagination.value.reinicia()
 })
 
 const buscaPedidos = async (paginacao: string) => {
