@@ -19,16 +19,17 @@
           <div v-if="pedido.status == 1" class="text-green-500 font-bold">INTEGRADO</div>
           <div v-if="pedido.status == 0" class="text-red-500 font-bold">NÃO INTEGRADO</div>
         </div>
-
         <ul class="space-y-2 border-t border-gray-200 dark:border-gray-700"></ul>
       </div>
     </div>
+    <paginacao class="m-5" :itens-pages="10" :total-pages="totalPaginas" @update="buscaPedidos"></paginacao>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, Ref } from "vue";
 import { pedidoRecords } from "../store/pedidos";
+import paginacao from "../components/paginacao.vue";
 
 interface pedBody {
   codigo: number
@@ -41,6 +42,7 @@ interface pedBody {
 let pesquisa = ref("");
 let showFiltro = ref(false);
 let pedidos = ref([]) as Ref<pedBody[]>;
+let totalPaginas = ref(0)
 
 onMounted(() => {
   buscaPedidos("page=0&size=10");
@@ -56,6 +58,7 @@ const buscaPedidos = async (paginacao: string) => {
     pedidos.value = response.body.content;
   }
   console.log("pedidos ", pedidos.value)
+  totalPaginas.value = response.body.totalPages
 }
 
 const detalha = async (codigo: number) => {
