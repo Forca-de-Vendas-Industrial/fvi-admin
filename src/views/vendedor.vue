@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="m-5">
-      <input class="border rounded py-2 px-3 w-full text-black bg-white border-black" type="text" placeholder="Pesquisar"
-        v-model="pesquisa" />
+      <input class="border rounded py-2 px-3  text-black bg-white  w-[90%] border-black" type="text"
+        placeholder="Pesquisar" v-model="pesquisa" />
+      <button class="bg-[rgb(39,36,141)] text-white px-5 ml-[2%] py-2 rounded-lg w-[8%]">NOVO</button>
     </div>
 
     <div class="m-5 bg-white border-black h-fit border rounded cursor-pointer ">
