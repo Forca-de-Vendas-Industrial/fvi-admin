@@ -31,4 +31,33 @@ export const prazoRecords = {
           });
       });
   },
+  listaPrazos: (pagination: string, dados: any) => {
+    const url = localStorage.getItem("urlAPI");
+    return fetch(url + "/deadlines/list?"+pagination, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": stateGlobal.token,
+      },
+      body: JSON.stringify(dados),
+    }).then(function (response) {
+        if (response.status == 200) {
+          return response.json();
+        }else if (response.status == 401) {
+          notification.notify({
+            title: "Não autenticado",
+            text: "Faça o login novamente",
+            type: "error",
+          });
+          window.location.href = window.location.href.split("#")[0] + "#/login";
+        }
+      }).catch(function (error) {
+        console.log("response error ", error)
+        notification.notify({
+            title: "ERRO",
+            text: error,
+            type: "error",
+          });
+      });
+  },
 }
