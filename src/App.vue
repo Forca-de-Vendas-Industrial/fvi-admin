@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { reactive, ref, getCurrentInstance, onMounted, computed } from "vue";
 import { useRoute } from "vue-router"
-import SvgIcon from "@jamescoyle/vue-icon";
+// import SvgIcon from "@jamescoyle/vue-icon";
 import { metodos } from "../src/const/Global";
 import { mdiShopping, mdiAccountGroup, mdiCurrencyUsd, mdiCog, mdiLogout, mdiAccountTag, mdiBallot, mdiBarcode, mdiDomain, mdiHome, mdiCalendar } from "@mdi/js";
 
